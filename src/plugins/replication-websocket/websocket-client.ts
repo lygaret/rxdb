@@ -67,10 +67,10 @@ export async function createWebSocketClient<RxDocType>(options: WebsocketClientO
     wsClient.onerror = (err) => {
 
         console.log('--- WAS CLIENT GOT ERROR:');
-        console.log(err.error.message);
+        console.log(err);
 
         const emitError = newRxError('RC_STREAM', {
-            errors: toArray(err).map((er: any) => errorToPlainJson(er)),
+            errors: [new Error(err)],
             direction: 'pull'
         });
         error$.next(emitError);
