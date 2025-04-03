@@ -36,9 +36,9 @@ async function createWebSocketClient(options) {
   var error$ = new _rxjs.Subject();
   wsClient.onerror = err => {
     console.log('--- WAS CLIENT GOT ERROR:');
-    console.log(err.error.message);
+    console.log(err);
     var emitError = (0, _rxError.newRxError)('RC_STREAM', {
-      errors: (0, _index2.toArray)(err).map(er => (0, _index2.errorToPlainJson)(er)),
+      errors: [new Error("was client error")],
       direction: 'pull'
     });
     error$.next(emitError);

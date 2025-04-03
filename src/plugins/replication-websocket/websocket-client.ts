@@ -70,7 +70,7 @@ export async function createWebSocketClient<RxDocType>(options: WebsocketClientO
         console.log(err);
 
         const emitError = newRxError('RC_STREAM', {
-            errors: [new Error(err)],
+            errors: [new Error("was client error")],
             direction: 'pull'
         });
         error$.next(emitError);

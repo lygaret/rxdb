@@ -1,7 +1,7 @@
 import { replicateRxCollection } from "../replication/index.js";
 import ReconnectingWebSocket from 'reconnecting-websocket';
 import IsomorphicWebSocket from 'isomorphic-ws';
-import { errorToPlainJson, randomToken, toArray } from "../../plugins/utils/index.js";
+import { randomToken } from "../../plugins/utils/index.js";
 import { filter, map, Subject, firstValueFrom, BehaviorSubject } from 'rxjs';
 import { newRxError } from "../../rx-error.js";
 /**
@@ -27,9 +27,9 @@ export async function createWebSocketClient(options) {
   var error$ = new Subject();
   wsClient.onerror = err => {
     console.log('--- WAS CLIENT GOT ERROR:');
-    console.log(err.error.message);
+    console.log(err);
     var emitError = newRxError('RC_STREAM', {
-      errors: toArray(err).map(er => errorToPlainJson(er)),
+      errors: [new Error("was client error")],
       direction: 'pull'
     });
     error$.next(emitError);
